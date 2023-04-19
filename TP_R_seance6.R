@@ -4,7 +4,7 @@
 ### A. Univariate linear regression with lm() function
 
 ### Data are from the Seance 3 Rdata
-load("Data_TP.RData")
+load("Data_TP3.RData")
 
 # le modèle est nommé model1
 # tous les résultats seront stockés dans model1
@@ -14,7 +14,7 @@ model1 <- lm(table$y ~ table$x)
 summary(model1)
 
 # Diagnostic plots
-par(mfrow = c(2,2)) #Permet d'afficher les graphiques 2X2
+par(mfrow = c(2, 2)) #Permet d'afficher les graphiques 2X2
 plot(model1)
 
 # Page 78 remark (not seen in TP)
@@ -54,16 +54,26 @@ plot(model2)
 ### C. Multivariate linear regression
 #La table de données utile à la réalisation de ce TP se trouve dans le
 #fichier « tp8_données.Rdata ».
+load("tp8_données.RData")
 # Description de la table
 names(tp8)
 
 # Description de la table
-# Q1
-# Q2
+# Q1 : Look at the distributions of age and score
+plot(tp8$age)
+plot(tp8$score)
+
+# Q2: Perform a LR to see if depression score increases with age
+mod.score <- lm(tp8$score ~ tp8$age)
+summary(mod.score)
+
 # Q3
 class(tp8$pen123)
 tp8$pen123num <- as.numeric(tp8$pen123)
 str(tp8)
+
+multi.mod <- lm(score ~ sexe + age + pen123, dat = tp8)
+summary(multi.mod)
 
 summary(lm(tp8$score ~ tp8$pen123num))
 # Q4
@@ -74,4 +84,3 @@ summary(lm(tp8$score ~ tp8$pen123num))
 ### B. Logistic regression
 # model<-glm(y ~ X1 + X2 + …Xi, data=…, family=binomial)
 
-load("tp8_données.RData")
