@@ -21,3 +21,10 @@ hemoglobin # Measurements of hb in children before and after a treatment
 
 nhanes # Sedentary minutes and obesity (for t-test?)
 t.test(sedmin ~ obese, dat = nhanes)
+table(nhanes$obese)
+
+nhanes$obese1 <- as.numeric(nhanes$obese) - 1
+class(nhanes$gender)
+table(nhanes$gender, nhanes$obese)
+fit <- glm(obese1 ~ gender + ht + age + tchol + hdl, family = "binomial", data = nhanes)
+summary(fit)
