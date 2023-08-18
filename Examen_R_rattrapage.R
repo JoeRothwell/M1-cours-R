@@ -23,8 +23,27 @@ nhanes # Sedentary minutes and obesity (for t-test?)
 t.test(sedmin ~ obese, dat = nhanes)
 table(nhanes$obese)
 
+# Question on logistic regression with nhanes data
 nhanes$obese1 <- as.numeric(nhanes$obese) - 1
 class(nhanes$gender)
 table(nhanes$gender, nhanes$obese)
+
+# Model 1
 fit <- glm(obese1 ~ gender + ht + age + tchol + hdl, family = "binomial", data = nhanes)
 summary(fit)
+
+
+
+# Plots for Q14
+plot(rnorm(100))
+plot(runif(100))
+barplot(rnorm(100))
+hist(runif(100))
+
+# Question on cor.test with diabetes data
+cor.test(diabetes$glyhb, diabetes$hdl)
+cor.test(diabetes$glyhb, diabetes$hdl, method = "spearman")
+
+# Question on lm with diabetes data
+summary(lm(waist ~ gender + chol + glyhb + hdl, data = diabetes))
+summary(lm(waist ~ gender + age + chol + glyhb + hdl, data = diabetes))
