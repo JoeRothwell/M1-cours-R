@@ -14,6 +14,7 @@ summary(lm(height ~ weight, dat = women))
 
 diabetes # data on diabetes markers and physical characteristics of 403 participants
 # question on making diabetes variable glyhb > 0.7
+dim(diabetes)
 
 drugpsy # Numbers of people with different disorders choosing a drug or not
 
@@ -31,7 +32,7 @@ table(nhanes$gender, nhanes$obese)
 # Model 1
 fit <- glm(obese1 ~ gender + ht + age + tchol + hdl, family = "binomial", data = nhanes)
 summary(fit)
-
+?glm
 
 
 # Plots for Q14
@@ -47,3 +48,20 @@ cor.test(diabetes$glyhb, diabetes$hdl, method = "spearman")
 # Question on lm with diabetes data
 summary(lm(waist ~ gender + chol + glyhb + hdl, data = diabetes))
 summary(lm(waist ~ gender + age + chol + glyhb + hdl, data = diabetes))
+
+# Epitab question
+library(epitools)
+tab <- table(AP.mod = nhanes$modrecexr, Obese = nhanes$obese)
+epitab(tab, method = "oddsratio", pvalue = "chi2", rev = "rows")
+
+
+#t-test
+summary(lm(post ~ treatment, data = hemoglobin))
+t.test(post ~ treatment, data = hemoglobin)
+
+#anova
+summary(lm(glyhb ~ waist + gender, data = diabetes))
+
+
+#chi square
+chisq.test(diabetes$gender, diabetes$frame)
