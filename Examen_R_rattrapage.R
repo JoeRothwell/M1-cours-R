@@ -1,67 +1,53 @@
-# Examen R et statistiques 2023
-
-# Jeux de donnees
-# Exam anxiety dataset, correlation and t-test
-
+# Examen R et statistiques 2023 rattrapage
 library(medicaldata)
 library(faraway)
 library(aplore3)
 
-# Potential datasets to use
-women # heights and weights of 15 women. Question on correlation?
-cor.test(women$height, women$weight)
-summary(lm(height ~ weight, dat = women))
-
-diabetes # data on diabetes markers and physical characteristics of 403 participants
-# question on making diabetes variable glyhb > 0.7
-dim(diabetes)
-
-drugpsy # Numbers of people with different disorders choosing a drug or not
-
+# Donnees :
 hemoglobin # Measurements of hb in children before and after a treatment
+diabetes # data on diabetes markers and physical characteristics of 403 participants
+nhanes
 
-nhanes # Sedentary minutes and obesity (for t-test?)
-t.test(sedmin ~ obese, dat = nhanes)
-table(nhanes$obese)
+# Q1
+a <- c(1,2,3,4)
+b <- c('a', 'b', 'c', 'd')
+data.frame(a, b)
 
-# Question on logistic regression with nhanes data
-nhanes$obese1 <- as.numeric(nhanes$obese) - 1
-class(nhanes$gender)
-table(nhanes$gender, nhanes$obese)
-
-# Model 1
-fit <- glm(obese1 ~ gender + ht + age + tchol + hdl, family = "binomial", data = nhanes)
-summary(fit)
-?glm
-
-
-# Plots for Q14
+# Q14
 plot(rnorm(100))
 plot(runif(100))
 barplot(rnorm(100))
 hist(runif(100))
 
-# Question on cor.test with diabetes data
+# Q18
 cor.test(diabetes$glyhb, diabetes$hdl)
-cor.test(diabetes$glyhb, diabetes$hdl, method = "spearman")
 
-# Question on lm with diabetes data
-summary(lm(waist ~ gender + chol + glyhb + hdl, data = diabetes))
-summary(lm(waist ~ gender + age + chol + glyhb + hdl, data = diabetes))
+# Q20
+t.test(post ~ treatment, data = hemoglobin)
 
-# Epitab question
+# Q21
+chisq.test(diabetes$gender, diabetes$frame)
+
+# Q22, Q23
 library(epitools)
 tab <- table(AP.mod = nhanes$modrecexr, Obese = nhanes$obese)
 epitab(tab, method = "oddsratio", pvalue = "chi2", rev = "rows")
 
+# Q24
+summary(lm(waist ~ gender + chol + glyhb + hdl, data = diabetes))
 
-#t-test
-summary(lm(post ~ treatment, data = hemoglobin))
-t.test(post ~ treatment, data = hemoglobin)
+# Q26
+nhanes$obese1 <- as.numeric(nhanes$obese) - 1
+mod <- glm(obese1 ~ gender + ht + age + tchol + hdl, family = "binomial", data = nhanes)
+summary(mod)
 
-#anova
+# Q27
+log(mod$coefficients)
+exp(mod$coefficients)
+mod$coefficients
+mod$fitted.values
+
+# Q29
 summary(lm(glyhb ~ waist + gender, data = diabetes))
 
 
-#chi square
-chisq.test(diabetes$gender, diabetes$frame)
